@@ -1,22 +1,23 @@
 PODS:
-  - bonsoir (0.1.0):
+  - bonsoir (1.0.1):
     - FlutterMacOS
-  - FlutterMacOS (1.0.0)
+  - FlutterMacOS (2.5)
 
 DEPENDENCIES:
   - bonsoir (from `Flutter/ephemeral/.symlinks/plugins/bonsoir/macos`)
-  - FlutterMacOS (from `Flutter/ephemeral/.symlinks/flutter/darwin-x64`)
+
+SPEC REPOS:
+  trunk:
+    - FlutterMacOS
 
 EXTERNAL SOURCES:
   bonsoir:
     :path: Flutter/ephemeral/.symlinks/plugins/bonsoir/macos
-  FlutterMacOS:
-    :path: Flutter/ephemeral/.symlinks/flutter/darwin-x64
 
 SPEC CHECKSUMS:
-  bonsoir: 6084faeda72c0f411c934b4f8e6014a0807e6e2d
-  FlutterMacOS: 15bea8a44d2fa024068daa0140371c020b4b6ff9
+  bonsoir: 9369e22a6b60a2b16e717b957e397117ee1ada5d
+  FlutterMacOS: 078aecd6294d0b7bce11c6dcddcb3e7818567a04
 
 PODFILE CHECKSUM: d8ba9b3e9e93c62c74a660b46c6fcb09f03991a7
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0

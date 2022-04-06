@@ -15,10 +15,11 @@ class ServiceList extends StatelessWidget {
         padding: EdgeInsets.all(20),
         child: Center(
           child: Text(
-            'Found no service of type "${AppService.type}".',
+            'No service available of type "${AppService.type}".',
             style: TextStyle(
-              color: Colors.black54,
+              color: Colors.redAccent,
               fontStyle: FontStyle.italic,
+              fontSize: 17,
             ),
           ),
         ),

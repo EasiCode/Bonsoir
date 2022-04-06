@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
   bonsoir:
     path: ../
+  dart_ipify: ^1.1.1
+  socket_io_client: ^1.0.2
 
 flutter:
   uses-material-design: true

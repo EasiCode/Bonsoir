@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:bonsoir/bonsoir.dart';
 import 'package:bonsoir_example/models/app_service.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:bonsoir_example/tcpSocket/client.dart';
+import 'package:dart_ipify/dart_ipify.dart';
 
 /// Provider model that allows to handle Bonsoir discoveries.
 class BonsoirDiscoveryModel extends ChangeNotifier {
@@ -21,12 +24,14 @@ class BonsoirDiscoveryModel extends ChangeNotifier {
   }
 
   /// Returns all discovered (and resolved) services.
-  List<ResolvedBonsoirService> get discoveredServices => List.of(_resolvedServices);
+  List<ResolvedBonsoirService> get discoveredServices =>
+      List.of(_resolvedServices.toSet());
 
   /// Starts the Bonsoir discovery.
   Future<void> start() async {
-    if(_bonsoirDiscovery == null || _bonsoirDiscovery.isStopped) {
-      _bonsoirDiscovery = BonsoirDiscovery(type: (await AppService.getService()).type);
+    if (_bonsoirDiscovery == null || _bonsoirDiscovery.isStopped) {
+      _bonsoirDiscovery =
+          BonsoirDiscovery(type: (await AppService.getService()).type);
       await _bonsoirDiscovery.ready;
     }
 
@@ -42,13 +47,18 @@ class BonsoirDiscoveryModel extends ChangeNotifier {
   }
 
   /// Triggered when a Bonsoir discovery event occurred.
-  void _onEventOccurred(BonsoirDiscoveryEvent event) {
-    if(event.service == null || !event.isServiceResolved) {
+  void _onEventOccurred(BonsoirDiscoveryEvent event) async {
+    if (event.service == null || !event.isServiceResolved) {
       return;
     }
 
     if (event.type == BonsoirDiscoveryEventType.DISCOVERY_SERVICE_RESOLVED) {
       _resolvedServices.add(event.service);
+
+     //dicover broadcast service and initiate client connection
+     clientSide();
+      
+      //_resolvedServices.add(event.service);
       notifyListeners();
     } else if (event.type == BonsoirDiscoveryEventType.DISCOVERY_SERVICE_LOST) {
       _resolvedServices.remove(event.service);

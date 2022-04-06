@@ -1,5 +1,10 @@
+import 'dart:async';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:bonsoir/bonsoir.dart';
 import 'package:bonsoir_example/models/app_service.dart';
+import 'package:bonsoir_example/tcpSocket/server.dart';
 import 'package:flutter/material.dart';
 
 /// Provider model that allows to handle Bonsoir broadcasts.
@@ -16,8 +21,11 @@ class BonsoirBroadcastModel extends ChangeNotifier {
   /// Starts the Bonsoir broadcast.
   Future<void> start({bool notify = true}) async {
     if (_bonsoirBroadcast == null || _bonsoirBroadcast.isStopped) {
-      _bonsoirBroadcast = BonsoirBroadcast(service: await AppService.getService());
+      _bonsoirBroadcast =
+          BonsoirBroadcast(service: await AppService.getService());
       await _bonsoirBroadcast.ready;
+      // create server socket and broadcast service
+      serverSide(); 
     }
 
     await _bonsoirBroadcast.start();

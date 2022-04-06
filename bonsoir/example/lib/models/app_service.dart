@@ -9,7 +9,8 @@ class AppService {
   static const String type = '_bonsoirdemo._tcp';
 
   /// The service port (in this example we're not doing anything on that port but you should).
-  static const int port = 4000;
+  static int port = 8000;
+  int get nextPort => port++;
 
   /// The cached service.
   static BonsoirService _service;
